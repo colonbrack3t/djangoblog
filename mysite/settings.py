@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
+    'blog',
+    'CV'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,9 @@ LOGIN_REDIRECT_URL = '/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, '/blog/templates'),
+os.path.join(BASE_DIR, '/CV/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
