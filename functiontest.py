@@ -35,6 +35,22 @@ class NewVisitorTest(unittest.TestCase):
                     raise e
                 time.sleep(0.5)
 
+    def test_can_go_to_CV_site(self):
+        self.browser.get('http://localhost:8000/blog')
+        self.assertIn("Ludovico's Blog", self.browser.title)
+
+        cv_button = self.browser.find_element_by_id('cv_btn')
+        cv_button.click()
+        start_time = time.time()
+        while True:
+            try:
+                self.assertIn("Ludovico's Curriculum Vitae", self.browser.title)
+                break
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
