@@ -2,24 +2,24 @@
 <html>
 <head>
     {{ form.media }}
-    <title>Ludovico's Blog</title>
+    <title id="title"></title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
-<body>
+<body onload="makeTitle()">
 <div class="page-header">
     {% if user.is_authenticated %}
         <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
         <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
         <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
     {% else %}
-        <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+        <a href="{% url 'login' %}" class="top-menu" id = "login_btn"><span class="glyphicon glyphicon-lock"></span></a>
     {% endif %}
 
-    <h1><a href="/blog">Ludovico's Blog</a>
-        <a class="cv-blog-link" href='/' id="cv_btn">
+    <h1><a href="" id="page_header"></a>
+        <a class="cv-blog-link" href='/' id="cv_blog_btn">
     <span class="glyphicon glyphicon-comment">
     </span>
         </a>
@@ -34,5 +34,24 @@
         </div>
     </div>
 </div>
+<script>
+    function makeTitle() {
+        const header = document.getElementById('page_header');
+        const title = document.getElementById("title")
+         link = document.getElementById('cv_blog_btn')
+
+        if (window.location.href.includes('blog')) {
+            header.innerText = "Ludovico's Blog"
+            title.innerHTML = "Ludovico's Blog"
+        } else {
+            header.innerText = "Ludovico's Curriculum Vitae"
+            title.innerHTML = "Ludovico's Curriculum Vitae"
+            link.setAttribute('href', '/blog')
+        }
+    }
+
+</script>
+
+
 </body>
 </html>

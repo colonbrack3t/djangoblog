@@ -22,7 +22,7 @@ class NewVisitorTest(unittest.TestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn("Ludovico's Curriculum Vitae", header_text)
 
-        blog_button = self.browser.find_element_by_id('blog_btn')
+        blog_button = self.browser.find_element_by_id('cv_blog_btn')
         blog_button.click()
         start_time = time.time()
 
@@ -39,7 +39,7 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000/blog')
         self.assertIn("Ludovico's Blog", self.browser.title)
 
-        cv_button = self.browser.find_element_by_id('cv_btn')
+        cv_button = self.browser.find_element_by_id('cv_blog_btn')
         cv_button.click()
         start_time = time.time()
         while True:
@@ -60,10 +60,10 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_log_in(self):
         self.browser.get('http://localhost:8000')
-        log_in_btn = self.browser.find_element_by_id("log_in_btn")
+        log_in_btn = self.browser.find_element_by_id("login_btn")
         log_in_btn.click()
-        time.sleep(1) #todo: dont use magic sleeps
-        #test user creds: testUser, qwertytest
+        time.sleep(1)  # todo: dont use magic sleeps
+        # test user creds: testUser, qwertytest
 
 
 if __name__ == '__main__':

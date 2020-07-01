@@ -1,8 +1,9 @@
-from django.urls import resolve
-from django.test import TestCase
-from django.http import HttpRequest
+from datetime import datetime
 
-from CV.models import CV_Entry
+from django.contrib.auth.models import User
+from django.test import TestCase
+
+from CV.models import CV_Entry, PersonalDetails
 
 
 class HomePageTest(TestCase):
@@ -22,5 +23,27 @@ class HomePageTest(TestCase):
         self.assertIn('item1', response.content.decode())
         self.assertIn('item2', response.content.decode())
 
-    def test_only_get_one_type_of_entry(self):
+    def test_can_auth_user(self):
+        user = User.objects.create(username="a")
+        user.set_password("1234")
+        user.save()
+        self.assertTrue(self.client.login(username="a", password="1234"))
 
+    def test_cannot_create_multiple_Personal_Details(self):
+        pd1 = PersonalDetails.objects.create(name="joe blogs", dob=datetime.now(), contactNumber="12345678900")
+        pd2 = PersonalDetails.objects.create(name="jane blogs", dob=datetime.now(), contactNumber="12345678900")
+        self.assertEqual(PersonalDetails.objects.all().count(), 1)
+        self.assertEqual(pd1.name, PersonalDetails.objects.first().name)
+        self.assertNotEqual(pd2.name, PersonalDetails.objects.first().name)
+
+    def test_display_personal_details(self):
+        name = "joe blogs"
+        dob = datetime.now()
+        no = "12345678900"
+        pd = PersonalDetails.objects.create(name=name, dob=dob, contactNumber=no)
+        pd.save()
+        response = self.client.get('/')
+        html = response.content.decode()
+        self.assertIn(name, html)
+        self.assertIn(dob.strftime("%#d %b %Y"), html)  # default Django DateField format
+        self.assertIn(no, html)

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 
-from CV.models import CV_Entry
+from CV.models import CV_Entry, PersonalDetails
 
 
 def home_page(request):
     entries = CV_Entry.objects.all()
-    return render(request, 'home.html', {'cv_entries': entries})
+    pd = PersonalDetails.objects.first()
+    return render(request, 'home.html', {'cv_entries': entries, 'personaldetails': pd})
 
 
 def blog(request):
