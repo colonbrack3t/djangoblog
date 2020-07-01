@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class CV_Entry(models.Model):
+    title = models.TextField(default='')
+    text = models.TextField(default='')

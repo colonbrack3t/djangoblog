@@ -51,6 +51,20 @@ class NewVisitorTest(unittest.TestCase):
                     raise e
                 time.sleep(0.5)
 
+    def test_can_see_CV_entries(self):
+        self.browser.get('http://localhost:8000')
+        self.assertIn("Ludovico's Curriculum Vitae", self.browser.title)
+
+        cv_entry = self.browser.find_elements_by_class_name("cv_entry")
+        self.assertIn("Personal Details:", cv_entry)
+
+    def test_can_log_in(self):
+        self.browser.get('http://localhost:8000')
+        log_in_btn = self.browser.find_element_by_id("log_in_btn")
+        log_in_btn.click()
+        time.sleep(1) #todo: dont use magic sleeps
+        #test user creds: testUser, qwertytest
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')

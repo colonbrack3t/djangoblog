@@ -16,6 +16,18 @@
         </a></h1>
 
 </div>
+
+<div>
+{% for entry in cv_entries %}
+<div class = "cv_entry">
+<h2>{{ entry.title }}</h2>
+    {{ entry.text }}
+</div>
+
+{% endfor %}
+
+
+</div>
 </body>
 
 </html>
