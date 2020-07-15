@@ -30,8 +30,8 @@ class HomePageTest(TestCase):
         self.assertTrue(self.client.login(username="a", password="1234"))
 
     def test_cannot_create_multiple_Personal_Details(self):
-        pd1 = PersonalDetails.objects.create(name="joe blogs", dob=datetime.now(), contactNumber="12345678900")
-        pd2 = PersonalDetails.objects.create(name="jane blogs", dob=datetime.now(), contactNumber="12345678900")
+        pd1 = PersonalDetails.objects.create(name="Joe Bloggs", dob=datetime.now(), contactNumber="12345678900")
+        pd2 = PersonalDetails.objects.create(name="Jane Bloggs", dob=datetime.now(), contactNumber="12345678900")
         self.assertEqual(PersonalDetails.objects.all().count(), 1)
         self.assertEqual(pd1.name, PersonalDetails.objects.first().name)
         self.assertNotEqual(pd2.name, PersonalDetails.objects.first().name)
@@ -47,3 +47,8 @@ class HomePageTest(TestCase):
         self.assertIn(name, html)
         self.assertIn(dob.strftime("%#d %b %Y"), html)  # default Django DateField format
         self.assertIn(no, html)
+
+
+    def test_create_entry_returns_correct_html(self):
+        response = self.client.get('/new/CV_Entry')
+

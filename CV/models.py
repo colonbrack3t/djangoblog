@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -7,8 +8,8 @@ class CV_Entry(models.Model):
 
 
 class Education(models.Model):
-    facility = models.TextField()
-    grades = models.TextField()
+    facility = models.TextField(default='')
+    grades = models.TextField(default='')
 
 
 class Singleton(models.Model):
