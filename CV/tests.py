@@ -48,7 +48,5 @@ class HomePageTest(TestCase):
         self.assertIn(dob.strftime("%#d %b %Y"), html)  # default Django DateField format
         self.assertIn(no, html)
 
-
     def test_create_entry_returns_correct_html(self):
         response = self.client.get('/new/CV_Entry')
-

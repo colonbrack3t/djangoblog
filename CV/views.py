@@ -9,5 +9,9 @@ def home_page(request):
     return render(request, 'home.html', {'cv_entries': entries, 'personaldetails': pd})
 
 
+def post_new(request):
+    return None
+
+
 def blog(request):
     return redirect('blog')
