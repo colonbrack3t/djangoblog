@@ -1,15 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class CV_Entry(models.Model):
-    title = models.TextField(default='')
+    title = models.CharField(max_length=100)
     text = models.TextField(default='')
+    dateStart = models.DateField(default=timezone.now)
+    dateEnd = models.DateField(default=timezone.now)
 
 
 class Education(models.Model):
-    facility = models.TextField(default='')
+    facility = models.CharField(max_length=100)
     grades = models.TextField(default='')
+    dateStart = models.DateField(default=timezone.now)
+    dateEnd = models.DateField(default=timezone.now)
 
 
 class Singleton(models.Model):
@@ -27,6 +32,6 @@ class Singleton(models.Model):
 
 
 class PersonalDetails(Singleton):
-    name = models.TextField(default='')
-    dob = models.DateField()
+    name = models.CharField(max_length=100)
+    dob = models.DateField(default=timezone.now)
     contactNumber = models.CharField(max_length=11)

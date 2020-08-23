@@ -11,13 +11,52 @@
     </div>
     </div>
 
+{% if user.is_authenticated %}
+    <div class = "personaldetialsedit">
+
+<a href="{% url 'edit_personal_details' %}" ><span class="glyphicon glyphicon-edit"></span></a>
+    </div>
+
+{%  endif %}
+
+    <div class="Education block">
+    <h2 id = "education_header"> Education</h2>
+{% if user.is_authenticated %}
+    <a href="{% url 'new_educ' %}" ><span class="glyphicon glyphicon-plus"></span></a>
+{% endif %}
+{% for entry in education %}
+<div class = "education">
+<h3>{{ entry.facility }}</h3>
+    {{ entry.grades | linebreaks }}
+Started : {{ entry.dateStart }}<br>
+    Ended : {{ entry.dateEnd }}
+
+{% if user.is_authenticated %}
+        <a href="{% url 'education_edit' pk=entry.pk %}" ><span class="glyphicon glyphicon-edit"></span></a>
+        <a href="{% url 'education_remove' pk=entry.pk%}"><span class="glyphicon glyphicon-remove"></span></a>
+    {% endif %}
+</div>
+
+{% endfor %}
+
+    </div>
 
 
 <div>
+<h2 id = "cv_entry_header"> Accomplishments</h2>
+{% if user.is_authenticated %}
+    <a id="cvnew" href="{% url 'cv_new' %}" ><span class="glyphicon glyphicon-plus"></span></a>
+{% endif %}
 {% for entry in cv_entries %}
 <div class = "cv_entry">
-<h2>{{ entry.title }}</h2>
-    {{ entry.text }}
+<h3 id="cvtitle_{{ entry.pk }}">{{ entry.title }}</h3>
+    {{ entry.text | linebreaks }}
+Started : {{ entry.dateStart }}<br>
+    Ended : {{ entry.dateEnd }}
+    {% if user.is_authenticated %}
+        <a id="cvedit_{{ entry.pk}}" href="{% url 'cv_edit' pk=entry.pk %}" ><span class="glyphicon glyphicon-edit"></span></a>
+        <a id="cvremove_{{ entry.pk}}" href="{% url 'cv_remove' pk=entry.pk%}"><span class="glyphicon glyphicon-remove"></span></a>
+    {% endif %}
 </div>
 
 {% endfor %}
