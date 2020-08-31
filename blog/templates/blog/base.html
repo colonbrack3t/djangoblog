@@ -47,10 +47,12 @@
         let element;
         if (window.location.href.includes('blog')){
             header.innerText = "Ludovico's Blog"
+header.setAttribute('href', '/blog')
             title.innerText = "Ludovico's Blog"
 
         } else {
             header.innerText = "Ludovico's Curriculum Vitae"
+            header.setAttribute('href', '/')
             title.innerText = "Ludovico's Curriculum Vitae"
             link.setAttribute('href', '/blog')
             {% if user.is_authenticated %}
